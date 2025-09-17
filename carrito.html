@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito - DAKOTA STORE</title>
+  <style>
+    body {margin:0; font-family:'Arial', sans-serif; background:#fff0f5; color:#333;}
+    header {background:#f8c8dc; display:flex; justify-content:space-between; align-items:center; padding:15px 40px;}
+    header h1 {color:#fff;}
+    nav ul {list-style:none; display:flex; gap:20px; margin:0; padding:0;}
+    nav a {color:#fff; text-decoration:none; font-weight:bold;}
+    nav a:hover {color:#ff69b4;}
+    .cart {font-weight:bold; cursor:pointer;}
+    main {padding:40px; text-align:center;}
+    main h2 {color:#d147a3;}
+    .galeria-container {display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin:20px 0;}
+    .galeria-container img {border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.2);}
+    button {padding:10px 20px; background:#d147a3; color:#fff; border:none; border-radius:5px; cursor:pointer;}
+    button:hover {background:#ff69b4;}
+    footer {background:#f8c8dc; text-align:center; padding:20px; margin-top:40px;}
+    footer a {color:#fff; text-decoration:none;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DAKOTA STORE</h1>
+    <nav>
+      <ul>
+        <li><a href="inicio.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="envio.html">Envío y devoluciones</a></li>
+        <li><a href="carrito.html" class="cart">🛒 <span id="cart-count">2</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Tu Carrito</h2>
+    <div class="galeria-container">
+      <div>
+        <img src="vestido1.jpg" alt="Vestido carrito" style="width:200px;">
+        <p>Vestido rosa - $4500</p>
+      </div>
+      <div>
+        <img src="blusa1.jpg" alt="Blusa carrito" style="width:200px;">
+        <p>Blusa blanca - $2500</p>
+      </div>
+    </div>
+
+    <h3>Total: $7000</h3>
+    <button>Finalizar compra</button>
+  </main>
+
+  <footer>
+    <p>Síguenos en Instagram: 
+      <a href="https://instagram.com/dakotastore" target="_blank">📸 DAKOTA STORE</a>
+    </p>
+  </footer>
+</body>
+</html>
