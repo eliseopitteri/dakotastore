@@ -5,57 +5,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrito - DAKOTA STORE</title>
   <style>
-    body {margin:0; font-family:'Arial', sans-serif; background:#fff0f5; color:#333;}
-    header {background:#f8c8dc; display:flex; justify-content:space-between; align-items:center; padding:15px 40px;}
+    body {margin:0; font-family:Arial, sans-serif; background:#fff0f5;}
+    header {background:#f8c8dc; padding:15px; text-align:center;}
     header h1 {color:#fff;}
-    nav ul {list-style:none; display:flex; gap:20px; margin:0; padding:0;}
-    nav a {color:#fff; text-decoration:none; font-weight:bold;}
+    nav a {margin:0 10px; color:#fff; text-decoration:none; font-weight:bold;}
     nav a:hover {color:#ff69b4;}
-    .cart {font-weight:bold; cursor:pointer;}
-    main {padding:40px; text-align:center;}
-    main h2 {color:#d147a3;}
-    .galeria-container {display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin:20px 0;}
-    .galeria-container img {border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.2);}
-    button {padding:10px 20px; background:#d147a3; color:#fff; border:none; border-radius:5px; cursor:pointer;}
-    button:hover {background:#ff69b4;}
-    footer {background:#f8c8dc; text-align:center; padding:20px; margin-top:40px;}
-    footer a {color:#fff; text-decoration:none;}
+    .cart {font-weight:bold; margin-left:20px; color:#fff;}
+    section {padding:40px; max-width:900px; margin:auto;}
+    h2 {color:#d147a3; margin-bottom:20px;}
+    .producto {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:#fff;
+      border-radius:10px;
+      padding:10px 15px;
+      margin-bottom:15px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.1);
+    }
+    .producto img {width:60px; height:80px; border-radius:5px;}
+    .info {flex:1; margin-left:15px; text-align:left;}
+    .precio {font-weight:bold; color:#d147a3;}
+    .btn-eliminar {
+      background:#ff4d6d; 
+      color:#fff; 
+      border:none; 
+      border-radius:5px; 
+      padding:5px 10px; 
+      cursor:pointer;
+      font-size:14px;
+    }
+    .btn-eliminar:hover {background:#cc0033;}
+    .btn-finalizar {
+      background:#ff69b4; color:#fff; padding:12px 25px;
+      border:none; border-radius:5px; cursor:pointer; font-weight:bold;
+      margin-top:20px;
+    }
+    .btn-finalizar:hover {background:#d147a3;}
+    footer {background:#f8c8dc; padding:20px; text-align:center;}
+    footer a {color:#fff; margin:0 10px; text-decoration:none;}
   </style>
 </head>
 <body>
   <header>
     <h1>DAKOTA STORE</h1>
     <nav>
-      <ul>
-        <li><a href="inicio.html">Inicio</a></li>
-        <li><a href="productos.html">Productos</a></li>
-        <li><a href="envio.html">Envío y devoluciones</a></li>
-        <li><a href="carrito.html" class="cart">🛒 <span id="cart-count">2</span></a></li>
-      </ul>
+      <a href="index.html">Inicio</a>
+      <a href="productos.html">Productos</a>
+      <a href="envio.html">Envío y devoluciones</a>
+      <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
     </nav>
   </header>
 
-  <main>
+  <section>
     <h2>Tu Carrito</h2>
-    <div class="galeria-container">
-      <div>
-        <img src="vestido1.jpg" alt="Vestido carrito" style="width:200px;">
-        <p>Vestido rosa - $4500</p>
-      </div>
-      <div>
-        <img src="blusa1.jpg" alt="Blusa carrito" style="width:200px;">
-        <p>Blusa blanca - $2500</p>
-      </div>
-    </div>
-
-    <h3>Total: $7000</h3>
-    <button>Finalizar compra</button>
-  </main>
+    <div id="lista-carrito"></div>
+    <p><strong>Total: $<span id="total">0</span></strong></p>
+    <button class="btn-finalizar">Finalizar compra</button>
+  </section>
 
   <footer>
-    <p>Síguenos en Instagram: 
-      <a href="https://instagram.com/dakotastore" target="_blank">📸 DAKOTA STORE</a>
-    </p>
+    <a href="https://instagram.com" target="_blank">📷 DAKOTA STORE</a>
+    <a href="https://wa.me/5491111111111" target="_blank">💬 WhatsApp</a>
   </footer>
+
+  <script>
+    // Recuperar carrito y contador
+    let cartCount = localStorage.getItem("cartCount") ? parseInt(localStorage.getItem("cartCount")) : 0;
+    document.getElementById("cart-count").innerText = cartCount;
+
+    let carrito = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
+
+    let lista = document.getElementById("lista-carrito");
+    let total = 0;
+
+    function renderCarrito() {
+      lista.innerHTML = "";
+      total = 0;
+
+      if (carrito.length === 0) {
+        lista.innerHTML = "<p>Tu carrito está vacío.</p>";
+      } else {
+        carrito.forEach((prod, index) => {
+          let div = document.createElement("div");
+          div.classList.add("producto");
+          div.innerHTML = `
+            <img src="${prod.img}">
+            <div class="info">
+              <p class="precio">$${prod.precio}</p>
+            </div>
+            <button class="btn-eliminar" data-index="${index}">Eliminar</button>
+          `;
+          lista.appendChild(div);
+          total += parseInt(prod.precio);
+        });
+      }
+
+      document.getElementById("total").innerText = total;
+      document.getElementById("cart-count").innerText = carrito.length;
+
+      // Guardar actualizaciones
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      localStorage.setItem("cartCount", carrito.length);
+    }
+
+    // Render inicial
+    renderCarrito();
+
+    // Evento de eliminación
+    lista.addEventListener("click", (e) => {
+      if (e.target.classList.contains("btn-eliminar")) {
+        let index = e.target.getAttribute("data-index");
+        carrito.splice(index, 1);
+        renderCarrito();
+      }
+    });
+  </script>
 </body>
 </html>
+
