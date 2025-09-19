@@ -1,156 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pago - DAKOTA STORE</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff0f5;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #ffc0cb;
-      padding: 15px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .payment-options {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 30px 0;
-    }
-
-    .payment-option {
-      cursor: pointer;
-      text-align: center;
-      border: 2px solid transparent;
-      padding: 10px;
-      border-radius: 10px;
-      background: #fff;
-      transition: 0.3s;
-    }
-
-    .payment-option:hover {
-      border: 2px solid #ff69b4;
-      background: #ffe6ef;
-    }
-
-    .payment-option img {
-      width: 60px;
-      height: auto;
-      display: block;
-      margin: 0 auto 10px;
-    }
-
-    .payment-form {
-      display: none;
-      max-width: 400px;
-      margin: 20px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-    }
-
-    .payment-form.active {
-      display: block;
-    }
-
-    .payment-form label {
-      display: block;
-      margin: 10px 0 5px;
-      font-weight: bold;
-    }
-
-    .payment-form input, .payment-form select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    .btn-submit {
-      background-color: #ff69b4;
-      color: white;
-      padding: 12px;
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .btn-submit:hover {
-      background-color: #e75480;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pago - DAKOTA STORE</title>
+<style>
+body {font-family: Arial; background:#fff0f5; margin:0; padding:0; text-align:center;}
+header {background:#ffc0cb; padding:15px; font-size:24px; font-weight:bold;}
+.payment-options {display:flex; justify-content:center; gap:20px; margin:30px 0;}
+.payment-option {cursor:pointer; text-align:center; border:2px solid transparent; padding:10px; border-radius:10px; background:#fff; transition:0.3s;}
+.payment-option:hover {border:2px solid #ff69b4; background:#ffe6ef;}
+.payment-option img {width:60px; margin-bottom:5px;}
+.payment-form {display:none; max-width:400px; margin:20px auto; background:#fff; padding:20px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+.payment-form.active {display:block;}
+.payment-form label{display:block; margin:10px 0 5px; font-weight:bold;}
+.payment-form input, .payment-form select {width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;}
+.btn-submit {background:#ff69b4; color:white; padding:12px; width:100%; border:none; border-radius:8px; cursor:pointer;}
+.btn-submit:hover {background:#e75480;}
+.cart-summary{margin-bottom:20px;}
+.cart-summary img{width:50px; margin-right:10px; vertical-align:middle;}
+</style>
 </head>
 <body>
+<header>Pago - DAKOTA STORE</header>
 
-  <header>Pago - DAKOTA STORE</header>
+<h2>Resumen del carrito</h2>
+<div class="cart-summary" id="cart-summary"></div>
 
-  <section>
-    <h2 style="text-align:center;">Selecciona tu método de pago</h2>
+<h2>Selecciona tu método de pago</h2>
+<div class="payment-options">
+  <div class="payment-option" onclick="showForm()"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg">Visa</div>
+  <div class="payment-option" onclick="showForm()"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg">Mastercard</div>
+  <div class="payment-option" onclick="showForm()"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Tarjeta_Naranja_logo.svg">Tarjeta Naranja</div>
+  <div class="payment-option" onclick="showForm()"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Bank_font_awesome.svg">Transferencia</div>
+</div>
 
-    <div class="payment-options">
-      <div class="payment-option" onclick="showForm('visa')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
-        <p>Visa</p>
-      </div>
-      <div class="payment-option" onclick="showForm('mastercard')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
-        <p>Mastercard</p>
-      </div>
-      <div class="payment-option" onclick="showForm('naranja')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Tarjeta_Naranja_logo.svg" alt="Tarjeta Naranja">
-        <p>Tarjeta Naranja</p>
-      </div>
-      <div class="payment-option" onclick="showForm('transferencia')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Bank_font_awesome.svg" alt="Transferencia">
-        <p>Transferencia Bancaria</p>
-      </div>
-    </div>
-  </section>
+<form id="payment-form" class="payment-form">
+  <label>Nombre y Apellido</label><input type="text" required>
+  <label>Número de tarjeta</label><input type="text" required>
+  <label>Fecha de vencimiento</label><input type="month" required>
+  <label>Código de seguridad</label><input type="password" required>
+  <label>Cantidad de cuotas</label>
+  <select>
+    <option>1 cuota</option>
+    <option>3 cuotas</option>
+    <option>6 cuotas</option>
+    <option>12 cuotas</option>
+  </select>
+  <button type="button" class="btn-submit" onclick="finalizarPago()">Finalizar Pago</button>
+</form>
 
-  <form id="payment-form" class="payment-form">
-    <h3>Completar datos</h3>
-    <label>Nombre y Apellido</label>
-    <input type="text" placeholder="Ej: Ana Pérez" required>
+<script>
+let cart = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
+let summary = document.getElementById("cart-summary");
+let total = 0;
+cart.forEach(p=>{
+  summary.innerHTML += `<img src="${p.img}">${p.nombre} $${p.precio}<br>`;
+  total += parseInt(p.precio);
+});
+summary.innerHTML += `<p><strong>Total: $${total}</strong></p>`;
 
-    <label>Número de tarjeta</label>
-    <input type="text" placeholder="0000 0000 0000 0000" required>
-
-    <label>Fecha de vencimiento</label>
-    <input type="month" required>
-
-    <label>Código de seguridad</label>
-    <input type="password" placeholder="CVV" required>
-
-    <label>Cantidad de cuotas</label>
-    <select>
-      <option>1 cuota</option>
-      <option>3 cuotas</option>
-      <option>6 cuotas</option>
-      <option>12 cuotas</option>
-    </select>
-
-    <button type="submit" class="btn-submit">Finalizar Pago</button>
-  </form>
-
-  <script>
-    function showForm(method) {
-      document.getElementById("payment-form").classList.add("active");
-    }
-  </script>
-
+function showForm(){document.getElementById("payment-form").classList.add("active");}
+function finalizarPago(){
+  localStorage.removeItem("carrito"); 
+  localStorage.removeItem("cartCount"); 
+  window.location.href="gracias.html";
+}
+</script>
 </body>
 </html>

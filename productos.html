@@ -1,153 +1,67 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Productos - DAKOTA STORE</title>
-  <style>
-    body {margin:0; font-family:Arial, sans-serif; background:#fff0f5;}
-    header {background:#f8c8dc; padding:15px; text-align:center;}
-    header h1 {color:#fff;}
-    nav a {margin:0 10px; color:#fff; text-decoration:none; font-weight:bold;}
-    nav a:hover {color:#ff69b4;}
-    .cart {font-weight:bold; margin-left:20px; color:#fff;}
-    section {padding:40px; text-align:center;}
-    .categoria {margin-bottom:50px;}
-    .categoria h2 {color:#d147a3;}
-    .galeria {display:flex; justify-content:center; gap:20px; flex-wrap:wrap;}
-    .card {
-      background:#fff;
-      border-radius:10px;
-      box-shadow:0 4px 8px rgba(0,0,0,0.2);
-      padding:15px;
-      width:250px;
-      text-align:center;
-    }
-    .card img {width:100%; border-radius:10px;}
-    .precio {font-size:1.1em; font-weight:bold; margin:10px 0; color:#d147a3;}
-    .btn-comprar {
-      display:inline-block;
-      padding:10px 20px;
-      background:#ff69b4;
-      color:white;
-      text-decoration:none;
-      border-radius:5px;
-      font-weight:bold;
-      transition:background 0.3s;
-      cursor:pointer;
-    }
-    .btn-comprar:hover {background:#d147a3;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos - DAKOTA STORE</title>
+<style>
+  body {font-family: Arial, sans-serif; background:#fff0f5; margin:0; padding:0;}
+  header {background:#f8c8dc; padding:15px; text-align:center; color:#fff;}
+  nav a {margin:0 10px; color:#fff; text-decoration:none; font-weight:bold;}
+  nav a:hover {color:#ff69b4;}
+  .card {background:#fff; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.2); padding:15px; width:250px; margin:20px; display:inline-block; vertical-align:top; text-align:center;}
+  .card img {width:100%; border-radius:10px;}
+  .precio {font-weight:bold; color:#d147a3; margin:10px 0;}
+  .btn-comprar {padding:10px 20px; background:#ff69b4; color:#fff; border:none; border-radius:5px; cursor:pointer;}
+  .btn-comprar:hover {background:#d147a3;}
+</style>
 </head>
 <body>
-  <header>
-    <h1>DAKOTA STORE</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="productos.html">Productos</a>
-      <a href="envio.html">Envío y devoluciones</a>
-      <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
-    </nav>
-  </header>
+<header>
+  DAKOTA STORE
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="productos.html">Productos</a>
+    <a href="envio.html">Envío y devoluciones</a>
+    <a href="carrito.html">🛒 <span id="cart-count">0</span></a>
+  </nav>
+</header>
 
-  <section class="categoria">
-    <h2>Vestidos</h2>
-    <div class="galeria">
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=11">
-        <p class="precio">$8.500</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=12">
-        <p class="precio">$9.200</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=13">
-        <p class="precio">$7.900</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-    </div>
-  </section>
+<section id="productos">
+  <!-- Ejemplo de producto -->
+  <div class="card" data-nombre="Vestido Rosa" data-precio="8500" data-img="https://picsum.photos/250/350?random=1">
+    <img src="https://picsum.photos/250/350?random=1" alt="Vestido Rosa">
+    <p class="precio">$8500</p>
+    <button class="btn-comprar">Comprar</button>
+  </div>
 
-  <section class="categoria">
-    <h2>Blusas</h2>
-    <div class="galeria">
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=14">
-        <p class="precio">$5.800</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=15">
-        <p class="precio">$6.100</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=16">
-        <p class="precio">$5.500</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-    </div>
-  </section>
+  <div class="card" data-nombre="Blusa Blanca" data-precio="4500" data-img="https://picsum.photos/250/350?random=2">
+    <img src="https://picsum.photos/250/350?random=2" alt="Blusa Blanca">
+    <p class="precio">$4500</p>
+    <button class="btn-comprar">Comprar</button>
+  </div>
+</section>
 
-  <section class="categoria">
-    <h2>Pantalones</h2>
-    <div class="galeria">
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=17">
-        <p class="precio">$10.500</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=18">
-        <p class="precio">$11.000</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=19">
-        <p class="precio">$9.800</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-    </div>
-  </section>
+<script>
+let cart = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
+document.getElementById("cart-count").innerText = cart.length;
 
-  <section class="categoria">
-    <h2>Remeras</h2>
-    <div class="galeria">
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=20">
-        <p class="precio">$4.200</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=21">
-        <p class="precio">$4.800</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/250/350?random=22">
-        <p class="precio">$3.900</p>
-        <button class="btn-comprar">Comprar</button>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // Inicializar contador desde localStorage
-    let cartCount = localStorage.getItem("cartCount") ? parseInt(localStorage.getItem("cartCount")) : 0;
-    document.getElementById("cart-count").innerText = cartCount;
-
-    // Agregar evento a los botones "Comprar"
-    const botones = document.querySelectorAll(".btn-comprar");
-    botones.forEach(boton => {
-      boton.addEventListener("click", () => {
-        cartCount++;
-        localStorage.setItem("cartCount", cartCount);
-        document.getElementById("cart-count").innerText = cartCount;
-      });
-    });
-  </script>
+document.querySelectorAll(".btn-comprar").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    const card = e.target.closest(".card");
+    const producto = {
+      nombre: card.getAttribute("data-nombre"),
+      precio: card.getAttribute("data-precio"),
+      img: card.getAttribute("data-img")
+    };
+    cart.push(producto);
+    localStorage.setItem("carrito", JSON.stringify(cart));
+    localStorage.setItem("cartCount", cart.length);
+    document.getElementById("cart-count").innerText = cart.length;
+    window.location.href = "carrito.html"; // Ir a carrito
+  });
+});
+</script>
 </body>
 </html>
+

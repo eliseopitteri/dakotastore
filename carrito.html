@@ -1,126 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrito - DAKOTA STORE</title>
-  <style>
-    body {margin:0; font-family:Arial, sans-serif; background:#fff0f5;}
-    header {background:#f8c8dc; padding:15px; text-align:center;}
-    header h1 {color:#fff;}
-    nav a {margin:0 10px; color:#fff; text-decoration:none; font-weight:bold;}
-    nav a:hover {color:#ff69b4;}
-    .cart {font-weight:bold; margin-left:20px; color:#fff;}
-    section {padding:40px; max-width:900px; margin:auto;}
-    h2 {color:#d147a3; margin-bottom:20px;}
-    .producto {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      background:#fff;
-      border-radius:10px;
-      padding:10px 15px;
-      margin-bottom:15px;
-      box-shadow:0 4px 8px rgba(0,0,0,0.1);
-    }
-    .producto img {width:60px; height:80px; border-radius:5px;}
-    .info {flex:1; margin-left:15px; text-align:left;}
-    .precio {font-weight:bold; color:#d147a3;}
-    .btn-eliminar {
-      background:#ff4d6d; 
-      color:#fff; 
-      border:none; 
-      border-radius:5px; 
-      padding:5px 10px; 
-      cursor:pointer;
-      font-size:14px;
-    }
-    .btn-eliminar:hover {background:#cc0033;}
-    .btn-finalizar {
-      background:#ff69b4; color:#fff; padding:12px 25px;
-      border:none; border-radius:5px; cursor:pointer; font-weight:bold;
-      margin-top:20px;
-    }
-    .btn-finalizar:hover {background:#d147a3;}
-    footer {background:#f8c8dc; padding:20px; text-align:center;}
-    footer a {color:#fff; margin:0 10px; text-decoration:none;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrito - DAKOTA STORE</title>
+<style>
+body {font-family: Arial; background:#fff0f5; margin:0; padding:0; text-align:center;}
+header {background:#ffc0cb; padding:15px; font-size:24px; font-weight:bold;}
+.cart-items {max-width:800px; margin:30px auto; background:#fff; padding:20px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+.item {display:flex; align-items:center; justify-content:space-between; margin:15px 0; border-bottom:1px solid #ddd; padding-bottom:10px;}
+.item img {width:80px; border-radius:8px;}
+.item .info {flex:1; margin-left:15px; text-align:left;}
+.btn-eliminar {background:#ff4d6d; color:#fff; border:none; border-radius:5px; padding:5px 10px; cursor:pointer;}
+.btn-eliminar:hover {background:#cc0033;}
+.btn-finalizar {display:inline-block; margin-top:20px; background:#ff69b4; color:#fff; padding:12px 20px; border-radius:10px; text-decoration:none; font-weight:bold; cursor:pointer;}
+.btn-finalizar:hover {background:#e75480;}
+</style>
 </head>
 <body>
-  <header>
-    <h1>DAKOTA STORE</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="productos.html">Productos</a>
-      <a href="envio.html">Envío y devoluciones</a>
-      <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
-    </nav>
-  </header>
+<header>Carrito - DAKOTA STORE</header>
 
-  <section>
-    <h2>Tu Carrito</h2>
-    <div id="lista-carrito"></div>
-    <p><strong>Total: $<span id="total">0</span></strong></p>
-    <button class="btn-finalizar">Finalizar compra</button>
-  </section>
+<section class="cart-items" id="cart-list">
+  <h2>Tu carrito</h2>
+  <!-- Productos dinámicos -->
+</section>
 
-  <footer>
-    <a href="https://instagram.com" target="_blank">📷 DAKOTA STORE</a>
-    <a href="https://wa.me/5491111111111" target="_blank">💬 WhatsApp</a>
-  </footer>
+<button class="btn-finalizar" onclick="window.location.href='pago.html'">Finalizar Compra</button>
 
-  <script>
-    // Recuperar carrito y contador
-    let cartCount = localStorage.getItem("cartCount") ? parseInt(localStorage.getItem("cartCount")) : 0;
-    document.getElementById("cart-count").innerText = cartCount;
+<script>
+let cart = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
+const cartList = document.getElementById("cart-list");
 
-    let carrito = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
+function renderCart() {
+  cartList.innerHTML = "<h2>Tu carrito</h2>";
+  if(cart.length===0){
+    cartList.innerHTML += "<p>Tu carrito está vacío.</p>";
+    localStorage.setItem("cartCount",0);
+    return;
+  }
+  cart.forEach((prod,index)=>{
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `
+      <img src="${prod.img}">
+      <div class="info">
+        <p>${prod.nombre}</p>
+        <p>$${prod.precio}</p>
+      </div>
+      <button class="btn-eliminar" data-index="${index}">Eliminar</button>
+    `;
+    cartList.appendChild(div);
+  });
+  localStorage.setItem("cartCount",cart.length);
+}
 
-    let lista = document.getElementById("lista-carrito");
-    let total = 0;
+// Manejo del botón Eliminar
+cartList.addEventListener("click", e=>{
+  if(e.target.classList.contains("btn-eliminar")){
+    const index = e.target.getAttribute("data-index");
+    cart.splice(index,1);
+    localStorage.setItem("carrito",JSON.stringify(cart));
+    renderCart();
+  }
+});
 
-    function renderCarrito() {
-      lista.innerHTML = "";
-      total = 0;
-
-      if (carrito.length === 0) {
-        lista.innerHTML = "<p>Tu carrito está vacío.</p>";
-      } else {
-        carrito.forEach((prod, index) => {
-          let div = document.createElement("div");
-          div.classList.add("producto");
-          div.innerHTML = `
-            <img src="${prod.img}">
-            <div class="info">
-              <p class="precio">$${prod.precio}</p>
-            </div>
-            <button class="btn-eliminar" data-index="${index}">Eliminar</button>
-          `;
-          lista.appendChild(div);
-          total += parseInt(prod.precio);
-        });
-      }
-
-      document.getElementById("total").innerText = total;
-      document.getElementById("cart-count").innerText = carrito.length;
-
-      // Guardar actualizaciones
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      localStorage.setItem("cartCount", carrito.length);
-    }
-
-    // Render inicial
-    renderCarrito();
-
-    // Evento de eliminación
-    lista.addEventListener("click", (e) => {
-      if (e.target.classList.contains("btn-eliminar")) {
-        let index = e.target.getAttribute("data-index");
-        carrito.splice(index, 1);
-        renderCarrito();
-      }
-    });
-  </script>
+renderCart();
+</script>
 </body>
 </html>
-
